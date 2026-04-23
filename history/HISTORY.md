@@ -58,3 +58,42 @@ EPlug Gmail Signature — HTML email signature for Gmail, based on a Figma desig
 - `public/assets/images/` — all PNG assets (@2x)
 
 ---
+
+## 2026-04-23 — V2 Signature (EPlug + Energy Plus)
+
+### Figma Design
+- Source: file `GXUObJIRiX2EfkOujCyNIq`, node `4700:912` (Signature V2)
+- New layout: left text block + right column with two stacked logo blocks
+- Colors: magenta `#FF00C5` (left + top-right), dark green `#1C4523` (bottom-right)
+- Gap between all three blocks: 4px
+- Total height: 212px, right column width: 174px
+
+### Content Changes vs V1
+- Job title split onto two lines: "Head of EV" / "EPlug • Energy Plus"
+- Removed website row (globe icon + `eplug.com`) from left contacts — now only Phone, Email, LinkedIn
+- Added "eplug.com" link under EPlug logo (top-right block)
+- Added second brand block with Energy Plus logo + "energyplusny.com" link
+
+### Assets
+- Exported new logos from Figma as SVG, rendered to transparent PNG via Chrome headless at @2x:
+  - `public/assets/images/eplug-logo-v2.png` (284×103) — new EPlug logo with "it's faster" tag
+  - `public/assets/images/energyplus-logo.png` (242×86) — Energy Plus wordmark + leaf mark
+- Reused existing contact icons from V1 (phone, email, linkedin)
+
+### HTML (`signature-v2.html`)
+- Email-safe table layout, inline CSS, `max-width:520px; width:100%`
+- Right column uses nested table with 4px spacer row between logo blocks
+- Heights balanced via `height:100%` on right inner table so both columns match
+- All images use absolute `https://chife-mod.github.io/...` URLs
+- Verified via Chrome headless screenshot — 1:1 match with Figma design
+
+### Files Created
+- `signature-v2.html` — V2 signature (new primary)
+- `public/assets/images/eplug-logo-v2.png`
+- `public/assets/images/energyplus-logo.png`
+
+### Decisions
+- Kept `max-width:520px` — full-width stretch would inflate the left pink block disproportionately since the right column is fixed at 174px; email-client best practice is 500–600px anyway
+- PNG over SVG — Gmail does not render inline/remote SVG reliably
+
+---
