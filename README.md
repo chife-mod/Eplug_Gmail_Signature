@@ -6,14 +6,16 @@ HTML-подпись для Gmail, экспортированная из Figma.
 
 | Файл | Описание |
 |---|---|
-| `signature.html` | **Рекомендуемый** — подпись-картинка, пиксель-перфект из Figma. Работает везде. |
-| `signature-live.html` | Альтернативный — живой HTML с копируемым текстом. Сплошной фон (Gmail вырезает текстуру). |
-| `index.html` | Превью обоих вариантов для локального просмотра. |
-| `public/assets/images/` | PNG-ассеты, экспортированные из Figma @2x через Images API. |
+| `signature-v3.html` | **Актуальный (2026-07)** — светлый макет из Figma `4869:509`: имя/контакты слева, логотипы Eplug + Energy Plus справа за разделителем. |
+| `signature-v2.html` | V2 — розово-зелёный макет с двумя лого-блоками. |
+| `signature.html` | V1 — подпись-картинка, пиксель-перфект из Figma. |
+| `signature-live.html` | V1 альтернативный — живой HTML с копируемым текстом. |
+| `index.html` | Превью V1-вариантов для локального просмотра. |
+| `public/assets/images/` | PNG-ассеты из Figma (V1/V2 @2x, V3 @4x). |
 
 ## Установка в Gmail
 
-1. Откройте `signature.html` в Chrome
+1. Откройте `signature-v3.html` в Chrome
 2. `Cmd+A` (выделить всё) → `Cmd+C` (копировать)
 3. Gmail → ⚙️ → **See all settings** → **General** → **Signature**
 4. `Cmd+V` (вставить)
@@ -34,5 +36,6 @@ https://chife-mod.github.io/Eplug_Gmail_Signature/public/assets/images/...
 
 ## Figma
 
-- **Файл**: [Eplug-Web](https://www.figma.com/design/NsarAMa9SQMVyRCQDvgqg3/Eplug-Web?node-id=296-197)
-- **Node**: `296:197` (Email Signature)
+- **V3**: [Eplug-Design](https://www.figma.com/design/GXUObJIRiX2EfkOujCyNIq/Eplug-Design?node-id=4869-509) — node `4869:509` (Michael Elhav)
+- **V2**: Eplug-Design, node `4700:912`
+- **V1**: [Eplug-Web](https://www.figma.com/design/NsarAMa9SQMVyRCQDvgqg3/Eplug-Web?node-id=296-197) — node `296:197`

@@ -97,3 +97,31 @@ EPlug Gmail Signature — HTML email signature for Gmail, based on a Figma desig
 - PNG over SVG — Gmail does not render inline/remote SVG reliably
 
 ---
+
+## 2026-07-10 — V3 Signature (light layout, Michael Elhav)
+
+### Figma Design
+- Source: file `GXUObJIRiX2EfkOujCyNIq`, node `4869:509` (Michael Elhav)
+- New light layout: white left panel (name/title/brands/contacts), `#FDFDFD` right panel with vertical divider + two stacked logos
+- Frame: 462×194; left panel 284px (padding 24), right panel 178px
+- Colors: Eplug brand text `#2E0054`, Energy Plus text `#327A39`, dividers = black 20% → `#CCCCCC`
+- Typography: Arial — name 24px bold, everything else 14px, job title uppercase
+
+### Assets (@4x PNG via Figma MCP `download_assets`)
+- `chip-phone-v3.png`, `chip-globe-v3.png`, `chip-linkedin-v3.png` (72×72, display 18×18) — circular icon chips with green border baked in (border-radius unreliable in email clients)
+- `eplug-logo-v3.png` (520×190, display 130×47) — pink Eplug logo with "It's faster"
+- `energyplus-logo-v3.png` (520×186, display 130×46) — green Energy Plus logo
+- Logos exported separately (not as one frame) so each carries its own link
+
+### HTML (`signature-v3.html`)
+- Email-safe table layout, inline CSS, `width:100%; max-width:462px`
+- Vertical panel divider: 1px td with inner div `height:146px`, vertically centered
+- Links: `tel:+18444437584,,102`, eplug.com, energyplusny.com, LinkedIn, both logos clickable
+- Verified in Chrome preview: table renders exactly 462×194, 1:1 vs Figma screenshot
+- Mobile check (375px): no viewport meta → renders at 980 virtual width and scales, same as mobile mail clients; no overflow
+
+### Files Created
+- `signature-v3.html` — V3 signature (new primary)
+- `public/assets/images/*-v3.png` — five new assets
+
+---
