@@ -114,11 +114,15 @@ EPlug Gmail Signature — HTML email signature for Gmail, based on a Figma desig
 - Logos exported separately (not as one frame) so each carries its own link
 
 ### HTML (`signature-v3.html`)
-- Email-safe table layout, inline CSS, `width:100%; max-width:462px`
-- Vertical panel divider: 1px td with inner div `height:146px`, vertically centered
-- Links: `tel:+18444437584,,102`, eplug.com, energyplusny.com, LinkedIn, both logos clickable
+- Email-safe table layout, inline CSS, fixed `width="462"` (Word engine ignores `max-width`, so no `width:100%`)
+- All dividers table-native (`td` + `bgcolor` + width/height attrs) — empty styled `<div>`s vanish in Outlook desktop
+- Vertical panel divider: nested 24/146/24 spacer table in a 1px column, stays centered in Word engine
+- Links: `tel:+18444437584` (plain, no comma-pause — Gmail strips exotic tel hrefs; "x102" stays as text), eplug.com, energyplusny.com, LinkedIn, both logos clickable
+- Spacers: `&nbsp;` + `font-size:1px;line-height:1px` + `mso-line-height-rule:exactly`
+- `border="0"` attribute on all images (blue link borders in old Outlook)
 - Verified in Chrome preview: table renders exactly 462×194, 1:1 vs Figma screenshot
 - Mobile check (375px): no viewport meta → renders at 980 virtual width and scales, same as mobile mail clients; no overflow
+- Background agent reviewed email-client compatibility; both HIGH findings (div dividers, max-width) fixed before shipping. Known trade-off: dark-mode clients invert the white background, logo contrast drops — accepted, standard for light signatures
 
 ### Files Created
 - `signature-v3.html` — V3 signature (new primary)
