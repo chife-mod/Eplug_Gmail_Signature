@@ -1,274 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EPlug Gmail Signature — Preview</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Eplug Email Signatures — Preview Dashboard</title>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #e0e0e0;
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
+<!--
+  Favicon: studio-blue square with brand initial. Only the letter changes
+  per project (E); the fill color stays locked.
+-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23116490'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='42' fill='white'%3EE%3C/text%3E%3C/svg%3E">
 
-        h1 {
-            text-align: center;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, #FF00C5, #FF6B9D);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+<link rel="stylesheet" href="shared/service-menu.css">
 
-        .subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 40px;
-        }
+<style>
+/* ─────────────────────────────────────────────────────────────────
+   Launcher palette — studio-fixed. Don't repaint per project.
+   Brand expression lives inside concept pages, not in the launcher.
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  --brand-blue:       #116490;
+  --brand-blue-dark:  #0d4f72;
+  --brand-blue-light: #9FBACD;
+  --brand-blue-pale:  #e8f2f7;
 
-        .section {
-            max-width: 700px;
-            margin: 0 auto 48px auto;
-        }
+  --bg-top:    #0a1219;
+  --bg-bottom: #1e2a35;
+  --charcoal:  #1e2a35;
+  --white:     #fff;
+  --border:    #d8e5ed;
+}
 
-        .section h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #ccc;
-        }
+/* ─────────────────────────────────────────────────────────────────
+   Reset + base
+   ─────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .section .desc {
-            font-size: 13px;
-            color: #777;
-            margin-bottom: 16px;
-        }
+html, body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--charcoal);
+  color: var(--white);
+  min-height: 100%;
+}
 
-        .preview-box {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 32px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-        }
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
 
-        .preview-box.dark {
-            background: #2a2a3e;
-        }
+.launcher {
+  flex: 1;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px 120px;          /* logo sticks to viewport top */
+}
 
-        .instructions {
-            max-width: 700px;
-            margin: 0 auto 48px auto;
-            background: #16213e;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 24px 28px;
-        }
+/* ─── Logo (top-left, h=88px, attached to top edge) ───────────── */
 
-        .instructions h2 {
-            font-size: 18px;
-            margin-bottom: 12px;
-            color: #FF6B9D;
-        }
+.launcher__logo {
+  display: block;
+  height: 88px;
+  margin-bottom: 64px;
+}
+.launcher__logo img {
+  display: block;
+  height: 100%;
+  width: auto;
+  /* Eplug mark is flattened onto near-white for email dark-mode;
+     give it a deliberate white plate on the dark launcher. */
+  background: #FDFDFD;
+  border-radius: 0 0 14px 14px;
+  padding: 16px 20px;
+}
 
-        .instructions ol {
-            padding-left: 20px;
-            line-height: 1.8;
-            color: #bbb;
-        }
+/* ─── Header (2:1 grid — title + subtitle in right column) ───── */
 
-        .instructions code {
-            background: #0f3460;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #FF6B9D;
-        }
+.launcher__header {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 64px;
+}
 
-        .badge {
-            display: inline-block;
-            background: #FF00C5;
-            color: white;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 20px;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-    </style>
+.launcher__eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--brand-blue-light);
+  margin-bottom: 20px;
+}
+
+.launcher__title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.launcher__subtitle {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 760px) {
+  .launcher__header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+}
+
+/* ─── Version cards grid ──────────────────────────────────────── */
+
+.launcher__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.version-card {
+  display: block;
+  padding: 28px 28px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 240ms ease, background 240ms ease, border-color 240ms ease;
+}
+
+.version-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.version-card__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brand-blue-light);
+  margin-bottom: 16px;
+}
+
+.version-card__tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.version-card__title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.version-card__desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+.version-card__cta {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.version-card__cta::after {
+  content: "→";
+  transition: transform 200ms ease;
+  display: inline-block;
+}
+
+.version-card:hover .version-card__cta::after {
+  transform: translateX(4px);
+}
+
+.version-card[data-status="planned"] {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.version-card[data-status="planned"] .version-card__cta::after {
+  content: "·";
+}
+
+/* ─── Section heading ────────────────────────────────────────── */
+
+.launcher__section-title {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 80px 0 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Resources strip ────────────────────────────────────────── */
+
+.launcher__resources {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.resource-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.resource-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.resource-card[data-status="pending"] {
+  opacity: 0.5;
+}
+
+.resource-card__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 7px;
+  color: var(--brand-blue-light);
+}
+
+.resource-card__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.resource-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.resource-card__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+.resource-card__sub {
+  display: block;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.02em;
+}
+
+.resource-card__arrow {
+  flex-shrink: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.3);
+  transition: transform 200ms ease, color 200ms ease;
+}
+
+.resource-card:hover .resource-card__arrow {
+  color: var(--brand-blue-light);
+  transform: translateX(2px);
+}
+
+/* ─── Project stages ─────────────────────────────────────────── */
+
+.stage-track {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stage {
+  position: relative;
+  padding: 18px 18px 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.stage[data-status="done"] {
+  background: rgba(79, 197, 156, 0.05);
+  border-color: rgba(79, 197, 156, 0.22);
+}
+
+.stage[data-status="active"] {
+  background: rgba(159, 186, 205, 0.08);
+  border-color: rgba(159, 186, 205, 0.38);
+}
+
+.stage__index {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.4);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 10px;
+}
+
+.stage[data-status="done"]   .stage__index { color: #4fc59c; }
+.stage[data-status="active"] .stage__index { color: var(--brand-blue-light); }
+
+.stage__name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: -0.005em;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+
+.stage[data-status="pending"] .stage__name { color: rgba(255, 255, 255, 0.55); }
+
+.stage__progress {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.stage__progress span {
+  display: block;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  transition: width 600ms ease;
+}
+
+.stage[data-status="done"]   .stage__progress span { background: #4fc59c; }
+.stage[data-status="active"] .stage__progress span { background: var(--brand-blue-light); }
+
+.stage__status {
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.5);
+  font-variant-numeric: tabular-nums;
+}
+
+.stage[data-status="done"]   .stage__status { color: rgba(79, 197, 156, 0.9); }
+.stage[data-status="active"] .stage__status { color: rgba(159, 186, 205, 0.92); }
+
+@media (max-width: 760px) {
+  .stage-track { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .stage-track { grid-template-columns: 1fr; }
+}
+
+/* ─── Meta + footer ──────────────────────────────────────────── */
+
+.launcher__meta {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px 40px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.launcher__meta-block dt {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 6px;
+}
+
+.launcher__meta-block dd a {
+  color: var(--brand-blue-light);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.launcher__meta-block dd a:hover {
+  border-bottom-color: var(--brand-blue-light);
+}
+
+.launcher__footer {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.02em;
+  margin-top: 56px;
+}
+</style>
 </head>
-
 <body>
 
-    <h1>EPlug Gmail Signature</h1>
-    <p class="subtitle">Preview both variants below. Pick the one that works best for you.</p>
+<!--
+  Per-page chip config — feeds shared/service-menu.js.
+  Edit VERSIONS as you add signatures for the group.
+-->
+<script>
+  window.PREVIEW_PROJECT_NAME = "Eplug Email Signatures";
+  window.PREVIEW_DEFAULT_VERSION = "signature-1";
+  window.PREVIEW_VERSIONS = [
+    { id: "signature-1", label: "Signature 1", desc: "Michael Elhav · Eplug + Energy Plus", path: "signature-1/" },
+    { id: "signature-2", label: "Signature 2", desc: "Moshe Lefkowitz · Energy Plus",       path: "signature-2/" },
+    { id: "launcher",    label: "Launcher",    desc: "All signatures of the group",         path: "" }
+  ];
+</script>
 
-    <!-- Variant 1: Image-based -->
-    <div class="section">
-        <h2>Variant 1: Image-based <span class="badge">RECOMMENDED</span></h2>
-        <p class="desc">Pixel-perfect Figma export. One image = guaranteed consistent look everywhere. Links hidden
-            underneath.</p>
-        <div class="preview-box">
-            <!-- PASTE FROM signature.html -->
-            <table cellpadding="0" cellspacing="0" border="0"
-                style="border-collapse:collapse;max-width:420px;width:100%;font-family:Arial,Helvetica,sans-serif;">
-                <tr>
-                    <td style="padding:0;">
-                        <a href="https://eplug.com" style="text-decoration:none;border:0;display:block;">
-                            <img src="public/assets/images/signature-full.png"
-                                alt="Michael Elhav — Head of EV, EPlug | 844-443-7584 x102 | michael@eplug.com | eplug.com"
-                                width="420" height="180"
-                                style="display:block;border:0;outline:none;width:100%;max-width:420px;height:auto;" />
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td
-                        style="padding:4px 0 0 0;font-family:Arial,Helvetica,sans-serif;font-size:1px;line-height:1px;color:#D4007A;">
-                        <a href="tel:+18444437584,,102" style="color:#D4007A;text-decoration:none;font-size:1px;">📱
-                            844-443-7584 x102</a>&nbsp;&nbsp;
-                        <a href="mailto:michael@eplug.com" style="color:#D4007A;text-decoration:none;font-size:1px;">✉️
-                            michael@eplug.com</a>&nbsp;&nbsp;
-                        <a href="https://www.linkedin.com/in/michael-y-elhav-781759113/"
-                            style="color:#D4007A;text-decoration:none;font-size:1px;">🔗 LinkedIn</a>&nbsp;&nbsp;
-                        <a href="https://eplug.com" style="color:#D4007A;text-decoration:none;font-size:1px;">🌐
-                            eplug.com</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<main class="launcher">
+
+  <a class="launcher__logo" href="./" aria-label="Eplug Email Signatures">
+    <img src="public/assets/images/eplug-logo-v3.png" alt="Eplug">
+  </a>
+
+  <header class="launcher__header">
+    <div class="launcher__header-main">
+      <span class="launcher__eyebrow">Eplug Group · Internal Preview</span>
+      <h1 class="launcher__title">Email Signatures</h1>
     </div>
+    <p class="launcher__subtitle">
+      Email-safe HTML signatures for the Eplug / Energy Plus group of companies —
+      designed in Figma, hardened for Gmail and Outlook, assets hosted on GitHub Pages.
+    </p>
+  </header>
 
-    <!-- Variant 2: Live HTML -->
-    <div class="section">
-        <h2>Variant 2: Live HTML</h2>
-        <p class="desc">Selectable text, clickable links. Solid magenta background (Gmail strips texture). Icons are
-            dark (Figma-exported, not tinted).</p>
-        <div class="preview-box">
-            <!-- PASTE FROM signature-live.html -->
-            <table cellpadding="0" cellspacing="0" border="0"
-                style="border-collapse:collapse;max-width:520px;width:100%;font-family:Arial,Helvetica,sans-serif;">
-                <tr>
-                    <td style="padding:0;">
-                        <table cellpadding="0" cellspacing="0" border="0"
-                            style="border-collapse:collapse;width:100%;background-color:#FF00C5;">
-                            <tr>
-                                <td style="padding:24px;vertical-align:top;">
-                                    <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-                                        <tr>
-                                            <td
-                                                style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#FFFFFF;line-height:24px;padding-bottom:4px;">
-                                                Michael Elhav
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                style="font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:normal;color:#FFFFFF;line-height:18px;padding-bottom:16px;">
-                                                Head of EV, EPlug
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-                                        <tr>
-                                            <td style="padding:1px 8px 1px 0;vertical-align:middle;width:18px;"
-                                                width="18">
-                                                <img src="public/assets/images/icon-phone.png" alt="" width="18"
-                                                    height="18" style="display:block;border:0;" />
-                                            </td>
-                                            <td
-                                                style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#FFFFFF;line-height:18px;padding:1px 0;vertical-align:middle;">
-                                                <a href="tel:+18444437584,,102"
-                                                    style="color:#FFFFFF;text-decoration:none;">844-443-7584 x102</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:1px 8px 1px 0;vertical-align:middle;width:18px;"
-                                                width="18">
-                                                <img src="public/assets/images/icon-email.png" alt="" width="18"
-                                                    height="18" style="display:block;border:0;" />
-                                            </td>
-                                            <td
-                                                style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#FFFFFF;line-height:18px;padding:1px 0;vertical-align:middle;">
-                                                <a href="mailto:michael@eplug.com"
-                                                    style="color:#FFFFFF;text-decoration:none;">michael@eplug.com</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:1px 8px 1px 0;vertical-align:middle;width:18px;"
-                                                width="18">
-                                                <img src="public/assets/images/icon-linkedin.png" alt="" width="18"
-                                                    height="18" style="display:block;border:0;" />
-                                            </td>
-                                            <td
-                                                style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#FFFFFF;line-height:18px;padding:1px 0;vertical-align:middle;">
-                                                <a href="https://www.linkedin.com/in/michael-y-elhav-781759113/"
-                                                    style="color:#FFFFFF;text-decoration:none;">LinkedIn</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:1px 8px 1px 0;vertical-align:middle;width:18px;"
-                                                width="18">
-                                                <img src="public/assets/images/icon-globe.png" alt="" width="18"
-                                                    height="18" style="display:block;border:0;" />
-                                            </td>
-                                            <td
-                                                style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#FFFFFF;line-height:18px;padding:1px 0;vertical-align:middle;">
-                                                <a href="https://eplug.com"
-                                                    style="color:#FFFFFF;text-decoration:none;">eplug.com</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td style="padding:24px;vertical-align:middle;text-align:right;" width="176">
-                                    <a href="https://eplug.com" style="text-decoration:none;border:0;">
-                                        <img src="public/assets/images/eplug-logo.png" alt="EPlug" width="176"
-                                            height="64"
-                                            style="display:block;border:0;outline:none;max-width:176px;height:auto;" />
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
+  <!-- ── Signature cards ───────────────────────────────────────
+       One card per person / signature. Statuses:
+         (default)             — interactive
+         data-status="planned" — dimmed, not clickable yet
+  -->
+  <div class="launcher__grid">
+    <a class="version-card" href="signature-1/">
+      <span class="version-card__tag">Live · V3</span>
+      <h2 class="version-card__title">Signature 1 — Michael Elhav</h2>
+      <p class="version-card__desc">
+        Head of EV · Eplug + Energy Plus. Current V3 light layout from Figma
+        4869:509 — contacts on the left, dual brand logos on the right.
+        Includes V1–V2 history and the Gmail install guide.
+      </p>
+      <span class="version-card__cta">Open</span>
+    </a>
+
+    <a class="version-card" href="signature-2/">
+      <span class="version-card__tag">Live · V4</span>
+      <h2 class="version-card__title">Signature 2 — Moshe Lefkowitz</h2>
+      <p class="version-card__desc">
+        President · Energy Plus. Current V4 — 1:1 build of Figma 1:2282 with real
+        conEdison award badges and the “Introducing VUE” promo card, pixel-diff
+        verified (98.3%).
+      </p>
+      <span class="version-card__cta">Open</span>
+    </a>
+  </div>
+
+  <h2 class="launcher__section-title">Resources</h2>
+  <div class="launcher__resources">
+
+    <a class="resource-card" href="https://www.figma.com/design/GXUObJIRiX2EfkOujCyNIq/Eplug-Design?node-id=4869-509" target="_blank" rel="noopener">
+      <span class="resource-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12a3 3 0 1 1 0-6h3v6h-3Zm0 0a3 3 0 1 0 0 6h3v-6h-3Zm0-6a3 3 0 1 1 0-6h3v6h-3ZM6 6a3 3 0 1 0 0 6h3V6H6Zm3 12a3 3 0 1 1-3-3h3v3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="resource-card__body">
+        <span class="resource-card__label">Figma file</span>
+        <span class="resource-card__sub">Eplug-Design — node 4869:509</span>
+      </span>
+      <span class="resource-card__arrow" aria-hidden="true">↗</span>
+    </a>
+
+    <a class="resource-card" href="https://github.com/chife-mod/Eplug_Gmail_Signature" target="_blank" rel="noopener">
+      <span class="resource-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="resource-card__body">
+        <span class="resource-card__label">Repository</span>
+        <span class="resource-card__sub">chife-mod/Eplug_Gmail_Signature</span>
+      </span>
+      <span class="resource-card__arrow" aria-hidden="true">↗</span>
+    </a>
+
+    <a class="resource-card" href="signature-1/#install">
+      <span class="resource-card__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 4h16v16H4z M4 4l8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </span>
+      <span class="resource-card__body">
+        <span class="resource-card__label">Gmail install guide</span>
+        <span class="resource-card__sub">Copy-paste steps · 1 minute</span>
+      </span>
+      <span class="resource-card__arrow" aria-hidden="true">→</span>
+    </a>
+
+  </div>
+
+  <h2 class="launcher__section-title">Project stages</h2>
+  <ol class="stage-track">
+    <li class="stage" data-status="done">
+      <div class="stage__index">01</div>
+      <div class="stage__name">Signature 1 · Design</div>
+      <div class="stage__progress"><span style="width: 100%"></span></div>
+      <div class="stage__status">Done — V1–V3 in Figma</div>
+    </li>
+    <li class="stage" data-status="done">
+      <div class="stage__index">02</div>
+      <div class="stage__name">Signature 1 · Build</div>
+      <div class="stage__progress"><span style="width: 100%"></span></div>
+      <div class="stage__status">Done — Gmail + Outlook safe</div>
+    </li>
+    <li class="stage" data-status="done">
+      <div class="stage__index">03</div>
+      <div class="stage__name">Signature 1 · Handoff</div>
+      <div class="stage__progress"><span style="width: 100%"></span></div>
+      <div class="stage__status">Done — V3 delivered</div>
+    </li>
+    <li class="stage" data-status="active">
+      <div class="stage__index">04</div>
+      <div class="stage__name">Signature 2</div>
+      <div class="stage__progress"><span style="width: 60%"></span></div>
+      <div class="stage__status">Draft — awaiting badges + VUE link</div>
+    </li>
+    <li class="stage" data-status="pending">
+      <div class="stage__index">05</div>
+      <div class="stage__name">Group rollout</div>
+      <div class="stage__progress"><span style="width: 0%"></span></div>
+      <div class="stage__status">Pending</div>
+    </li>
+  </ol>
+
+  <dl class="launcher__meta">
+    <div class="launcher__meta-block">
+      <dt>Stack</dt>
+      <dd>Email-safe HTML tables · Inline CSS · PNG @4x assets · GitHub Pages hosting</dd>
     </div>
-
-    <!-- Figma reference -->
-    <div class="section">
-        <h2>Figma Reference</h2>
-        <p class="desc">Original design for comparison.</p>
-        <div class="preview-box dark" style="text-align:center;">
-            <img src="public/assets/images/signature-full.png" alt="Figma reference"
-                style="max-width:100%;height:auto;border-radius:4px;" />
-        </div>
+    <div class="launcher__meta-block">
+      <dt>Documentation</dt>
+      <dd>
+        <a href="https://github.com/chife-mod/Eplug_Gmail_Signature/blob/main/README.md" target="_blank" rel="noopener">Project README</a>
+      </dd>
     </div>
-
-    <!-- Installation instructions -->
-    <div class="instructions">
-        <h2>📋 How to Install in Gmail</h2>
-        <ol>
-            <li>Open <code>signature.html</code> (or <code>signature-live.html</code>) in Chrome</li>
-            <li>Select all: <code>Cmd+A</code> (Mac) / <code>Ctrl+A</code> (Windows)</li>
-            <li>Copy: <code>Cmd+C</code> / <code>Ctrl+C</code></li>
-            <li>Open Gmail → <code>⚙️ Settings</code> → <code>See all settings</code> → <code>General</code> →
-                <code>Signature</code></li>
-            <li>Paste: <code>Cmd+V</code> / <code>Ctrl+V</code></li>
-            <li>Click <code>Save Changes</code> at the bottom</li>
-        </ol>
+    <div class="launcher__meta-block">
+      <dt>Production target</dt>
+      <dd>Gmail — Eplug / Energy Plus mailboxes</dd>
     </div>
+  </dl>
 
+  <p class="launcher__footer">
+    Internal preview · not for public distribution · © 2026 Eplug
+  </p>
+</main>
+
+<script defer src="shared/service-menu.js"></script>
 </body>
-
 </html>

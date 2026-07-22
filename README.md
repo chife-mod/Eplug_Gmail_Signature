@@ -1,17 +1,29 @@
-# EPlug Gmail Signature
+# EPlug Email Signatures
 
-HTML-подпись для Gmail, экспортированная из Figma.
+HTML-подписи для Gmail — проект подписей для группы компаний Eplug / Energy Plus.
+Каждая подпись — карточка на дашборде (`index.html`); внутри — превью версий и инструкция установки.
 
-## Файлы
+## Структура
 
 | Файл | Описание |
 |---|---|
-| `signature-v3.html` | **Актуальный (2026-07)** — светлый макет из Figma `4869:509`: имя/контакты слева, логотипы Eplug + Energy Plus справа за разделителем. |
-| `signature-v2.html` | V2 — розово-зелёный макет с двумя лого-блоками. |
-| `signature.html` | V1 — подпись-картинка, пиксель-перфект из Figma. |
-| `signature-live.html` | V1 альтернативный — живой HTML с копируемым текстом. |
-| `index.html` | Превью V1-вариантов для локального просмотра. |
+| `index.html` | **Дашборд-лаунчер** — карточки всех подписей группы (темплейт project-dashboard). |
+| `signature-1/` | Превью Signature 1 (Michael Elhav): текущая V3, история V1–V2, инструкция. |
+| `signature-2/` | Превью Signature 2 (Moshe Lefkowitz, President · Energy Plus): оба варианта + open items. |
+| `signature-2-v4.html` | **Signature 2, актуальный (2026-07)** — макет из Figma `Email-Signatures-All` node `1:2282` (600×488): Energy Plus, настоящие бейджи наград, промо-карточка VUE. Пиксель-дифф с Figma — 97.4%. |
+| `signature-2.html` | Signature 2, драфт — V3-стиль 462px, бейджи-плейсхолдеры. Заменён на V4. |
+| `signature-2-vue.html` | Signature 2, драфт + промо-блок VUE. Заменён на V4. |
+| `scripts/build-assets.py` | Нарезка @2x-ассетов из мастер-экспорта Figma @4x. |
+| `scripts/qa-diff.sh` + `.py` | Рендер в headless Chrome @2x и пиксель-дифф с эталоном Figma. |
+| `qa/` | Эталон Figma и результаты диффа (карта расхождений, side-by-side). |
+| `shared/` | Токены, компоненты и чипса-навигатор превью (из темплейта). |
+| `signature-v3.html` | **Signature 1, актуальный (2026-07)** — светлый макет из Figma `4869:509`: имя/контакты слева, логотипы Eplug + Energy Plus справа за разделителем. |
+| `signature-v2.html` | Signature 1, V2 — розово-зелёный макет с двумя лого-блоками. |
+| `signature.html` | Signature 1, V1 — подпись-картинка, пиксель-перфект из Figma. |
+| `signature-live.html` | Signature 1, V1 альтернативный — живой HTML с копируемым текстом. |
 | `public/assets/images/` | PNG-ассеты из Figma (V1/V2 @2x, V3 @4x). |
+
+Новая подпись = папка `signature-N/` + карточка на дашборде + raw-файлы `signature-N-*.html`.
 
 ## Установка в Gmail
 
@@ -21,12 +33,34 @@ HTML-подпись для Gmail, экспортированная из Figma.
 4. `Cmd+V` (вставить)
 5. **Save Changes**
 
+## Пересборка и проверка
+
+```bash
+python3 scripts/build-assets.py                                            # ассеты из мастер-кадра Figma
+./scripts/qa-diff.sh signature-2-v4.html qa/ref/figma-1-2282@2x.png 600 488  # пиксель-дифф
+```
+
+Методика и свод правил вёрстки писем — в шаблоне студии
+`oz/mod-manager/templates/email-signature/` (`BEST-PRACTICES.md`).
+
 ## Хостинг изображений
 
 Подпись использует GitHub Pages для хостинга картинок:
 ```
 https://chife-mod.github.io/Eplug_Gmail_Signature/public/assets/images/...
 ```
+
+> **Картинка обязана быть закоммичена, иначе у получателя будет битая иконка.**
+> Локальное превью этого не покажет — файл лежит на диске, но на GH Pages его нет.
+> Так сломались `chip-mail-v3`, `chip-pin-v3` и `badge-ph-1..4` в драфте `signature-2.html`.
+> Проверка:
+> ```bash
+> for f in public/assets/images/**/*.{png,jpg}; do
+>   printf "%-40s remote=%s git=%s\n" "$f" \
+>     "$(curl -s -o /dev/null -w '%{http_code}' "https://chife-mod.github.io/Eplug_Gmail_Signature/$f")" \
+>     "$(git ls-files --error-unmatch "$f" >/dev/null 2>&1 && echo tracked || echo UNTRACKED)"
+> done
+> ```
 
 Для активации GitHub Pages:
 1. GitHub → Settings → Pages
