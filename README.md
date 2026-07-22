@@ -10,9 +10,7 @@ HTML-подписи для Gmail — проект подписей для гру
 | `index.html` | **Дашборд-лаунчер** — карточки всех подписей группы (темплейт project-dashboard). |
 | `signature-1/` | Превью Signature 1 (Michael Elhav): текущая V3, история V1–V2, инструкция. |
 | `signature-2/` | Превью Signature 2 (Moshe Lefkowitz, President · Energy Plus): оба варианта + open items. |
-| `signature-2-v4.html` | **Signature 2, актуальный (2026-07)** — макет из Figma `Email-Signatures-All` node `1:2282` (600×488): Energy Plus, настоящие бейджи наград, промо-карточка VUE. Пиксель-дифф с Figma — 97.4%. |
-| `signature-2.html` | Signature 2, драфт — V3-стиль 462px, бейджи-плейсхолдеры. Заменён на V4. |
-| `signature-2-vue.html` | Signature 2, драфт + промо-блок VUE. Заменён на V4. |
+| `signature-2-v4.html` | **Signature 2, актуальный (2026-07)** — макет из Figma `Email-Signatures-All` node `1:2282` (600×488): Energy Plus, настоящие бейджи наград, промо-карточка VUE. Пиксель-дифф с Figma — 98.3%. Ранние драфты (A/B с плейсхолдерами) удалены — есть в git-истории до `8c1baac`. |
 | `scripts/build-assets.py` | Нарезка @2x-ассетов из мастер-экспорта Figma @4x. |
 | `scripts/qa-diff.sh` + `.py` | Рендер в headless Chrome @2x и пиксель-дифф с эталоном Figma. |
 | `qa/` | Эталон Figma и результаты диффа (карта расхождений, side-by-side). |
@@ -52,7 +50,7 @@ https://chife-mod.github.io/Eplug_Gmail_Signature/public/assets/images/...
 
 > **Картинка обязана быть закоммичена, иначе у получателя будет битая иконка.**
 > Локальное превью этого не покажет — файл лежит на диске, но на GH Pages его нет.
-> Так сломались `chip-mail-v3`, `chip-pin-v3` и `badge-ph-1..4` в драфте `signature-2.html`.
+> Так в 2026-07 сломались иконки в драфтах Signature 2: файлы лежали локально, но не были закоммичены.
 > Проверка:
 > ```bash
 > for f in public/assets/images/**/*.{png,jpg}; do
