@@ -444,9 +444,10 @@ body {
   window.PREVIEW_PROJECT_NAME = "Eplug Email Signatures";
   window.PREVIEW_DEFAULT_VERSION = "launcher";
   window.PREVIEW_VERSIONS = [
-    { id: "type-1",   label: "Type 1 — Compact",  desc: "Dual brand · Michael, Moshe",   path: "type-1-compact/" },
-    { id: "type-2",   label: "Type 2 — Extended", desc: "Awards + VUE · Moshe, Matthew", path: "type-2-extended/" },
-    { id: "launcher", label: "Launcher",          desc: "All signature types",           path: "" }
+    { id: "type-1",   label: "Type 1 — Compact",       desc: "Dual brand · Michael, Moshe",   path: "type-1-compact/" },
+    { id: "type-2",   label: "Type 2 — Extended",      desc: "Energy Plus · Moshe, Matthew",  path: "type-2-extended/" },
+    { id: "type-3",   label: "Type 3 — Extended dual", desc: "Both brands · Moshe",           path: "type-3-extended-dual/" },
+    { id: "launcher", label: "Launcher",               desc: "All signature types",           path: "" }
   ];
 </script>
 
@@ -486,11 +487,22 @@ body {
 
     <a class="version-card" href="type-2-extended/">
       <span class="version-card__tag">Type 2 · Extended</span>
-      <h2 class="version-card__title">Extended — awards + VUE</h2>
+      <h2 class="version-card__title">Extended — Energy Plus</h2>
       <p class="version-card__desc">
         Adds email and postal address, the Recognition &amp; Awards badge row
         and the “Introducing VUE” promo card. 1:1 from Figma 1:2282.
         <strong>Moshe Lefkowitz</strong>, <strong>Matthew Polaniecki</strong>.
+      </p>
+      <span class="version-card__cta">Open</span>
+    </a>
+
+    <a class="version-card" href="type-3-extended-dual/">
+      <span class="version-card__tag">Type 3 · Extended dual</span>
+      <h2 class="version-card__title">Extended — both brands</h2>
+      <p class="version-card__desc">
+        Type 2 with Eplug added: both logos side by side, two website lines,
+        no postal address. 1:1 from Figma 1:2422.
+        <strong>Moshe Lefkowitz</strong>.
       </p>
       <span class="version-card__cta">Open</span>
     </a>
