@@ -10,12 +10,13 @@ HTML-подписи для Gmail — проект подписей для гру
 | `index.html` | **Дашборд-лаунчер** — карточки **типов** подписей (темплейт project-dashboard). |
 | `type-1-compact/` | **Тип 1 — Compact (dual brand)**: Michael Elhav, Moshe Lefkowitz. |
 | `type-2-extended/` | **Тип 2 — Extended, Energy Plus** (awards + VUE): Moshe Lefkowitz, Matthew Polaniecki. |
-| `type-3-extended-dual/` | **Тип 3 — Extended, оба бренда**: Moshe Lefkowitz. |
+| `type-3-extended-dual/` | **Тип 3 — Extended, оба бренда**: Moshe Lefkowitz, Moshe Freund. |
 | `signature-1/`, `signature-2/` | Редирект-заглушки на новые страницы типов (старые ссылки не ломаются). |
 | `signature-2-v4.html` | **Signature 2 / Moshe Lefkowitz, актуальный (2026-07)** — макет из Figma `Email-Signatures-All` node `1:2282` (600×488): Energy Plus, настоящие бейджи наград, промо-карточка VUE. Пиксель-дифф с Figma — 98.3%. Ранние драфты (A/B с плейсхолдерами) удалены — есть в git-истории до `8c1baac`. |
 | `signature-2-moshe-dual.html` | **Signature 2 / Moshe, компактная двухбрендовая** — раскладка Signature 1 из Figma node `1:62` (446×210): телефон, сайты, LinkedIn; логотипы Eplug + Energy Plus стопкой справа. Пиксель-дифф — 97.3%. |
 | `signature-2-matthew.html` | **Signature 2 / Matthew Polaniecki (COO/CTO)** — то же семейство, адаптация: имя длиннее (колонка 222px + зазор 3px, правый блок на том же месте), титул в две строки, один телефон. Правый блок и VUE-карточка побитово совпадают со сборкой Moshe. |
 | `signature-3-moshe.html` | **Тип 3 / Moshe** — Figma node `1:2422` (600×464): бренд-строка «Energy Plus \| Eplug», два логотипа в ряд, сайты в две строки, без адреса, бейджи 55px. Пиксель-дифф — 98.8%. |
+| `signature-3-freund.html` | **Тип 3 / Moshe Freund (CRO)** — тот же layout и ассеты, данные Freund (mfreund@, x203 + моб. 646-289-2283). LinkedIn — плейсхолдер. |
 | `scripts/build-assets.py` | Нарезка @2x-ассетов из мастер-экспорта Figma @4x. |
 | `scripts/qa-diff.sh` + `.py` | Рендер в headless Chrome @2x и пиксель-дифф с эталоном Figma. |
 | `qa/` | Эталон Figma и результаты диффа (карта расхождений, side-by-side). |
