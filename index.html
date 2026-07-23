@@ -442,11 +442,11 @@ body {
 -->
 <script>
   window.PREVIEW_PROJECT_NAME = "Eplug Email Signatures";
-  window.PREVIEW_DEFAULT_VERSION = "signature-1";
+  window.PREVIEW_DEFAULT_VERSION = "launcher";
   window.PREVIEW_VERSIONS = [
-    { id: "signature-1", label: "Signature 1", desc: "Michael Elhav · Eplug + Energy Plus", path: "signature-1/" },
-    { id: "signature-2", label: "Signature 2", desc: "Moshe Lefkowitz · Energy Plus",       path: "signature-2/" },
-    { id: "launcher",    label: "Launcher",    desc: "All signatures of the group",         path: "" }
+    { id: "type-1",   label: "Type 1 — Compact",  desc: "Dual brand · Michael, Moshe",   path: "type-1-compact/" },
+    { id: "type-2",   label: "Type 2 — Extended", desc: "Awards + VUE · Moshe, Matthew", path: "type-2-extended/" },
+    { id: "launcher", label: "Launcher",          desc: "All signature types",           path: "" }
   ];
 </script>
 
@@ -473,24 +473,24 @@ body {
          data-status="planned" — dimmed, not clickable yet
   -->
   <div class="launcher__grid">
-    <a class="version-card" href="signature-1/">
-      <span class="version-card__tag">Live · V3</span>
-      <h2 class="version-card__title">Signature 1 — Michael Elhav</h2>
+    <a class="version-card" href="type-1-compact/">
+      <span class="version-card__tag">Type 1 · Compact</span>
+      <h2 class="version-card__title">Compact — dual brand</h2>
       <p class="version-card__desc">
-        Head of EV · Eplug + Energy Plus. Current V3 light layout from Figma
-        4869:509 — contacts on the left, dual brand logos on the right.
-        Includes V1–V2 history and the Gmail install guide.
+        Name, role and both brand marks; phone, websites and LinkedIn only.
+        The everyday signature for writing on behalf of Eplug and Energy Plus.
+        <strong>Michael Elhav</strong>, <strong>Moshe Lefkowitz</strong>.
       </p>
       <span class="version-card__cta">Open</span>
     </a>
 
-    <a class="version-card" href="signature-2/">
-      <span class="version-card__tag">Live · V4</span>
-      <h2 class="version-card__title">Signature 2 — Energy Plus Team</h2>
+    <a class="version-card" href="type-2-extended/">
+      <span class="version-card__tag">Type 2 · Extended</span>
+      <h2 class="version-card__title">Extended — awards + VUE</h2>
       <p class="version-card__desc">
-        Moshe Lefkowitz (President) + Matthew Polaniecki (COO/CTO). One design
-        family — 1:1 build of Figma 1:2282 with real conEdison award badges and
-        the “Introducing VUE” promo card, pixel-diff verified.
+        Adds email and postal address, the Recognition &amp; Awards badge row
+        and the “Introducing VUE” promo card. 1:1 from Figma 1:2282.
+        <strong>Moshe Lefkowitz</strong>, <strong>Matthew Polaniecki</strong>.
       </p>
       <span class="version-card__cta">Open</span>
     </a>

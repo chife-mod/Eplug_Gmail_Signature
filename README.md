@@ -7,9 +7,10 @@ HTML-подписи для Gmail — проект подписей для гру
 
 | Файл | Описание |
 |---|---|
-| `index.html` | **Дашборд-лаунчер** — карточки всех подписей группы (темплейт project-dashboard). |
-| `signature-1/` | Превью Signature 1 (Michael Elhav): текущая V3, история V1–V2, инструкция. |
-| `signature-2/` | Превью Signature 2 (Moshe Lefkowitz, President · Energy Plus): оба варианта + open items. |
+| `index.html` | **Дашборд-лаунчер** — карточки **типов** подписей (темплейт project-dashboard). |
+| `type-1-compact/` | **Тип 1 — Compact (dual brand)**: Michael Elhav, Moshe Lefkowitz. |
+| `type-2-extended/` | **Тип 2 — Extended (awards + VUE)**: Moshe Lefkowitz, Matthew Polaniecki. |
+| `signature-1/`, `signature-2/` | Редирект-заглушки на новые страницы типов (старые ссылки не ломаются). |
 | `signature-2-v4.html` | **Signature 2 / Moshe Lefkowitz, актуальный (2026-07)** — макет из Figma `Email-Signatures-All` node `1:2282` (600×488): Energy Plus, настоящие бейджи наград, промо-карточка VUE. Пиксель-дифф с Figma — 98.3%. Ранние драфты (A/B с плейсхолдерами) удалены — есть в git-истории до `8c1baac`. |
 | `signature-2-moshe-dual.html` | **Signature 2 / Moshe, компактная двухбрендовая** — раскладка Signature 1 из Figma node `1:62` (446×210): телефон, сайты, LinkedIn; логотипы Eplug + Energy Plus стопкой справа. Пиксель-дифф — 97.3%. |
 | `signature-2-matthew.html` | **Signature 2 / Matthew Polaniecki (COO/CTO)** — то же семейство, адаптация: имя длиннее (колонка 222px + зазор 3px, правый блок на том же месте), титул в две строки, один телефон. Правый блок и VUE-карточка побитово совпадают со сборкой Moshe. |
@@ -23,7 +24,8 @@ HTML-подписи для Gmail — проект подписей для гру
 | `signature-live.html` | Signature 1, V1 альтернативный — живой HTML с копируемым текстом. |
 | `public/assets/images/` | PNG-ассеты из Figma (V1/V2 @2x, V3 @4x). |
 
-Новая подпись = папка `signature-N/` + карточка на дашборде + raw-файлы `signature-N-*.html`.
+**Структура — по типам, внутри типа — люди.** Новый человек в существующем типе = raw-файл
+`signature-*.html` + секция на странице типа. Новый тип = папка `type-N-*/` + карточка на дашборде.
 
 ## Установка в Gmail
 

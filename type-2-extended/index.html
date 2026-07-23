@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Type 2 — Extended · Eplug Email Signatures</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23116490'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='42' fill='white'%3EE%3C/text%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/components.css">
+<link rel="stylesheet" href="../shared/service-menu.css">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  min-height: 100%;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-8) 140px;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+
+.page__header { margin-bottom: var(--space-12); }
+
+.page__header .eyebrow {
+  font-size: var(--text-caption);
+  margin-bottom: var(--space-4);
+}
+
+.page__title {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: var(--space-2);
+}
+
+.page__subtitle {
+  font-size: var(--text-body);
+  line-height: 1.55;
+  color: var(--color-mute);
+}
+
+.page__back {
+  display: inline-block;
+  font-size: var(--text-small);
+  color: var(--color-mute);
+  text-decoration: none;
+  margin-bottom: var(--space-8);
+}
+.page__back:hover { color: var(--color-ink); }
+
+/* ─── Section ────────────────────────────────────────────────── */
+
+.section { margin-bottom: var(--space-16); }
+
+.section__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.section__title {
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.section__note {
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--color-mute);
+  margin-bottom: var(--space-4);
+}
+
+/* ─── Signature preview card ─────────────────────────────────── */
+
+.sig-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-island);
+  overflow: hidden;
+}
+
+.sig-card iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+.sig-card__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.sig-card__bar .spacer { flex: 1; }
+
+.sig-card__file {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-mute);
+}
+
+/* ─── Install steps ──────────────────────────────────────────── */
+
+.install {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-island);
+  padding: var(--space-6);
+}
+
+.install ol {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.install li {
+  counter-increment: step;
+  display: flex;
+  gap: var(--space-4);
+  align-items: baseline;
+  font-size: var(--text-small);
+  line-height: 1.55;
+}
+
+.install li::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.install kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  background: var(--color-paper);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+}
+
+/* ─── Open-items note ────────────────────────────────────────── */
+
+.note {
+  background: var(--color-warn-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--color-warn-fg);
+}
+
+.note ul {
+  margin-top: var(--space-2);
+  padding-left: var(--space-5);
+}
+</style>
+</head>
+<body>
+
+<script>
+  window.PREVIEW_PROJECT_NAME = "Eplug Email Signatures";
+  window.PREVIEW_DEFAULT_VERSION = "type-2";
+  window.PREVIEW_VERSIONS = [
+    { id: "type-1",   label: "Type 1 — Compact",  desc: "Dual brand · Michael, Moshe",   path: "type-1-compact/" },
+    { id: "type-2",   label: "Type 2 — Extended", desc: "Awards + VUE · Moshe, Matthew", path: "type-2-extended/" },
+    { id: "launcher", label: "Launcher",          desc: "All signature types",           path: "" }
+  ];
+</script>
+
+<main class="page">
+
+  <a class="page__back" href="../">← All signature types</a>
+
+  <header class="page__header">
+    <span class="eyebrow">Type 2 · Extended</span>
+    <h1 class="page__title">Extended — awards + VUE</h1>
+    <p class="page__subtitle">The full Energy Plus signature: adds email and postal address, the Recognition &amp; Awards badge row and the “Introducing VUE” promo card. A 1:1 build of Figma <code>Email-Signatures-All · 1:2282</code> — 600×488.</p>
+  </header>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">Moshe Lefkowitz</h2>
+      <span class="chip chip--mono">President</span>
+    </div>
+    <p class="section__note">The reference build for this type — pixel-diff verified against the Figma frame (98.3%). Fits Gmail’s 10,000-character signature cap (~9.3K after paste).</p>
+    <div class="sig-card">
+      <iframe src="../signature-2-v4.html" height="580" title="Moshe Lefkowitz signature preview"></iframe>
+      <div class="sig-card__bar">
+        <span class="sig-card__file">signature-2-v4.html</span>
+        <span class="spacer"></span>
+        <a class="btn btn--primary btn--sm" href="../signature-2-v4.html" target="_blank" rel="noopener">Open raw file ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">Matthew Polaniecki</h2>
+      <span class="chip chip--mono">COO / CTO</span>
+    </div>
+    <p class="section__note">Same type, adapted for the longer name and two-line title; single phone line (x217). Right block and VUE card are pixel-identical to Moshe’s build.</p>
+    <div class="sig-card">
+      <iframe src="../signature-2-matthew.html" height="580" title="Matthew Polaniecki signature preview"></iframe>
+      <div class="sig-card__bar">
+        <span class="sig-card__file">signature-2-matthew.html</span>
+        <span class="spacer"></span>
+        <a class="btn btn--primary btn--sm" href="../signature-2-matthew.html" target="_blank" rel="noopener">Open raw file ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="install">
+    <div class="section__head">
+      <h2 class="section__title">Install in Gmail</h2>
+    </div>
+    <p class="section__note">Every signature in this type installs the same way.</p>
+    <div class="install">
+      <ol>
+        <li><span>Open the raw file for the right person in Chrome (buttons above).</span></li>
+        <li><span>Select all — <kbd>Cmd</kbd>+<kbd>A</kbd> — then copy — <kbd>Cmd</kbd>+<kbd>C</kbd>.</span></li>
+        <li><span>Gmail → ⚙️ → <strong>See all settings</strong> → <strong>General</strong> → <strong>Signature</strong>.</span></li>
+        <li><span>Paste — <kbd>Cmd</kbd>+<kbd>V</kbd> — into the signature field.</span></li>
+        <li><span>Scroll down and hit <strong>Save Changes</strong>.</span></li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<script defer src="../shared/service-menu.js"></script>
+</body>
+</html>
