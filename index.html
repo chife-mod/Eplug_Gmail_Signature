@@ -49,7 +49,38 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;             /* positioning context for the hero band */
   background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
+
+/* ─── Hero band — NYC skyline behind the header, melted into the theme ───
+   Owned Energy Plus asset (the VUE-card cityscape). Masked to fade in at the
+   top and out at the bottom, so it dissolves into the page gradient with no
+   seam; kept subtle so the cards stay the focus. Swap the image to change it. */
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 560px;
+  z-index: 0;
+  pointer-events: none;
+  background: url("public/assets/images/dashboard/skyline.jpg") no-repeat center bottom;
+  background-size: cover;
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 26%, #000 68%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 26%, #000 68%, transparent 100%);
+}
+/* readability veil: darken the very top so the logo/eyebrow stay crisp */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,18,25,0.55) 0%, rgba(10,18,25,0) 34%);
+}
+
+@media (max-width: 760px) {
+  .hero-bg { height: 420px; }
 }
 
 .launcher {
@@ -58,6 +89,8 @@ body {
   width: 100%;
   margin: 0 auto;
   padding: 0 32px 120px;          /* logo sticks to viewport top */
+  position: relative;             /* sit above the hero band */
+  z-index: 1;
 }
 
 /* ─── Logo (top-left, h=88px, attached to top edge) ───────────── */
@@ -450,6 +483,8 @@ body {
     { id: "launcher", label: "Launcher",               desc: "All signature types",           path: "" }
   ];
 </script>
+
+<div class="hero-bg" aria-hidden="true"></div>
 
 <main class="launcher">
 
