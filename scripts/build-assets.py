@@ -24,12 +24,20 @@ set should stay well under ~100 KB:
 Run: python3 scripts/build-assets.py
 """
 import pathlib
-from PIL import Image
+from PIL import Image, ImageFilter
 
 D = pathlib.Path("public/assets/images/sig-ep")
 MASTER = D / "_src" / "frame-1-2282@4x.png"
 SRC_SCALE = 4    # master export scale
-OUT_SCALE = 2    # production scale
+OUT_SCALE = 2    # default production scale
+
+# Per-asset scale overrides. The award thumbnails carry fine certificate text
+# that turns to mush at @2x on a small physical box, so they ship at @3x (retina-
+# safe, ~2x the bytes of @2x, half of @4x) with a light unsharp pass — the display
+# width/height in the HTML stay @1x, the extra pixels just add crispness.
+# (Colleague feedback, 2026-07: "the awards are terribly unclear.")
+SCALE = {"award-1": 3, "award-2": 3, "award-3": 3, "award-4": 3}
+SHARPEN = {"award-1", "award-2", "award-3", "award-4"}
 
 # name -> (x, y, w, h) in @1x frame coordinates, and encoder
 SLICES = [
@@ -58,14 +66,17 @@ SLICES = [
     ("vue-card",      (24,    286, 552, 178), "jpg"),
 ]
 
-QUALITY = {"vue-card": 92}
+QUALITY = {"vue-card": 92, "award-1": 90, "award-2": 90, "award-3": 90, "award-4": 90}
 
 
-def slice_asset(master, box, out_w, out_h):
+def slice_asset(master, box, out_w, out_h, sharpen=False):
     x, y, w, h = box
     crop = master.crop((round(x * SRC_SCALE), round(y * SRC_SCALE),
                         round((x + w) * SRC_SCALE), round((y + h) * SRC_SCALE)))
-    return crop.resize((out_w, out_h), Image.LANCZOS)
+    out = crop.resize((out_w, out_h), Image.LANCZOS)
+    if sharpen:
+        out = out.filter(ImageFilter.UnsharpMask(radius=1.0, percent=55, threshold=1))
+    return out
 
 
 if __name__ == "__main__":
@@ -75,8 +86,9 @@ if __name__ == "__main__":
 
     total = 0
     for name, box, fmt in SLICES:
-        w, h = box[2] * OUT_SCALE, box[3] * OUT_SCALE
-        img = slice_asset(master, box, w, h)
+        scale = SCALE.get(name, OUT_SCALE)
+        w, h = box[2] * scale, box[3] * scale
+        img = slice_asset(master, box, w, h, sharpen=name in SHARPEN)
         if fmt == "png":
             path = D / f"{name}.png"
             img.save(path, optimize=True)
