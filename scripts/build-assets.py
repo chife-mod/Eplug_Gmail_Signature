@@ -36,7 +36,7 @@ OUT_SCALE = 2    # default production scale
 # safe, ~2x the bytes of @2x, half of @4x) with a light unsharp pass — the display
 # width/height in the HTML stay @1x, the extra pixels just add crispness.
 # (Colleague feedback, 2026-07: "the awards are terribly unclear.")
-SCALE = {"award-1": 3, "award-2": 3, "award-3": 3, "award-4": 3}
+SCALE = {"award-1": 4, "award-2": 4, "award-3": 4, "award-4": 4}
 SHARPEN = {"award-1", "award-2", "award-3", "award-4"}
 
 # name -> (x, y, w, h) in @1x frame coordinates, and encoder
